@@ -1,4 +1,4 @@
-# Aplicativo de despesas || Treinamento de desenvolvimento em flutter
+# Treinamento flutter - App despesas
 
 ## Getting Started
 
