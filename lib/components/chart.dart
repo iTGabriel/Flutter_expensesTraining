@@ -41,8 +41,7 @@ class Chart extends StatelessWidget {
       child: Padding(padding: const EdgeInsets.all(10), child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: groupTransactions.map((item) {
-          return Flexible(
-            fit: FlexFit.tight,
+          return Expanded(
             child:ChartBar(
             label: item['day'],
             value: item['value'],
