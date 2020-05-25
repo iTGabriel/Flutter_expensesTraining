@@ -19,7 +19,7 @@ class ChartBar extends StatelessWidget {
     return Column(
       children: <Widget>[
         value > 0
-            ? Text(NumberFormat('#.00', 'pt-BR').format(value))
+            ? FittedBox(child: Text(NumberFormat('#.00', 'pt-BR').format(value)))
             : Text(NumberFormat('0,00', 'pt-BR').format(value)),
         SizedBox(height: 5),
         Container(
