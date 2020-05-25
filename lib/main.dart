@@ -34,7 +34,6 @@ class HomePage extends StatefulWidget{
 class HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
     Transaction(id: '1', title: 'Flutter 2', value: 20, date: DateTime.now().subtract(Duration(days: 5))),
-    Transaction(id: '2', title: 'Flutter 4', value: 20, date: DateTime.now().subtract(Duration(days: 20))),
   ];
 
   List <Transaction> get _transacaoRecente{
