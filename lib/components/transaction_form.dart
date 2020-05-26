@@ -14,7 +14,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
   final titleController = TextEditingController();
   final valueController = TextEditingController();
-  DateTime _selectedTime;
+  DateTime _selectedTime = DateTime.now();
 
   _submitForm(){
   final title = titleController.text;

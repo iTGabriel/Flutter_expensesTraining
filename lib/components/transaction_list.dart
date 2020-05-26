@@ -27,19 +27,19 @@ class TransactionList extends StatelessWidget {
           return Card(
             elevation: 5,
             color: Theme.of(context).primaryColor,
-            child: Row(children: <Widget>[
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              decoration: BoxDecoration(border: Border.all(width: 2, color: Colors.red[100])),
-              padding: EdgeInsets.all(10),
-              child: Text(NumberFormat('R\$ #.00', 'pt-BR').format(transaction.value), style: Theme.of(context).textTheme.headline5)),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                Text(transaction.title, style: Theme.of(context).textTheme.headline6),
-                Text(DateFormat('d ').format(transaction.date) + 'de ' + DateFormat('MMMM ').format(transaction.date) + 'de ' + DateFormat('y ').format(transaction.date), style: Theme.of(context).textTheme.headline6.apply(color: Colors.white38)),
-                ])
-                ]));
+            // child: Container(
+              child: ListTile(
+                leading: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(border: Border.all(width: 2, color: Colors.red[100])),
+                    padding: EdgeInsets.all(8),
+                  child: Text(NumberFormat('R\$ #.00', 'pt-BR').format(transaction.value), style: Theme.of(context).textTheme.headline5),
+                ),
+                title: Text(transaction.title, style: Theme.of(context).textTheme.headline6),
+                subtitle: Text(DateFormat('d ').format(transaction.date) + 'de ' + DateFormat('MMMM ').format(transaction.date) + 'de ' + DateFormat('y ').format(transaction.date), style: Theme.of(context).textTheme.headline6.apply(color: Colors.white38)),
+                trailing: IconButton(icon: Icon(Icons.delete), onPressed: null)
+                )
+                );
         }),
     );
   }
