@@ -2,11 +2,15 @@ import 'package:despesas_pessoais/models/Transaction.dart';
 import 'package:flutter/material.dart';
 import 'ChartBar.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 
 class Chart extends StatelessWidget {
   final List<Transaction> transacaoRecente;
 
   Chart(this.transacaoRecente);
+
+ 
 
   List<Map<String, Object>> get groupTransactions {
     return List.generate(7, (index) {
@@ -23,7 +27,7 @@ class Chart extends StatelessWidget {
         }
       }
 
-      return {'day': DateFormat.E().format(weekDay)[0], 'value': total};
+      return {'day': DateFormat.E().format(weekDay), 'value': total};
     });
   }
 
@@ -34,20 +38,23 @@ class Chart extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    groupTransactions;
+    Intl.defaultLocale = 'pt_Br';
+    initializeDateFormatting('pt_Br', null);
+
+    // groupTransactions;
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
       child: Padding(padding: const EdgeInsets.all(10), child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: groupTransactions.map((item) {
+        children: transacaoRecente.length > 0 ? groupTransactions.map((item) {
           return Expanded(
             child:ChartBar(
-            label: item['day'],
+                          label: item['day'].toString().toUpperCase(),
             value: item['value'],
             percentage:(item['value'] as double) / _weekTotalValue ,
           ));
-        }).toList(),
+        }).toList() : [] ,
       ),
     ));
   }
