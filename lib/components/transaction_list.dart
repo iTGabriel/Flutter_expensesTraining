@@ -4,8 +4,9 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class TransactionList extends StatelessWidget {
   final List transactionList;
+  final void Function(String) transactionRemove;
 
-  TransactionList(this.transactionList);
+  TransactionList(this.transactionList, this.transactionRemove);
 
   Widget build(BuildContext context) {
     Intl.defaultLocale = 'pt_Br';
@@ -23,23 +24,21 @@ class TransactionList extends StatelessWidget {
       : ListView.builder(
         itemCount: transactionList.length,
         itemBuilder: (context, index) {
-            final transaction = transactionList[index];
+          final transaction = transactionList[index];
           return Card(
             elevation: 5,
             color: Theme.of(context).primaryColor,
             // child: Container(
               child: ListTile(
                 leading: Container(
+                  decoration: BoxDecoration(border: Border.all(width: 2, color: Colors.red[100]), borderRadius: BorderRadius.circular(7.5)),
                   margin: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(border: Border.all(width: 2, color: Colors.red[100])),
-                    padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8),
                   child: Text(NumberFormat('R\$ #.00', 'pt-BR').format(transaction.value), style: Theme.of(context).textTheme.headline5),
                 ),
                 title: Text(transaction.title, style: Theme.of(context).textTheme.headline6),
                 subtitle: Text(DateFormat('d ').format(transaction.date) + 'de ' + DateFormat('MMMM ').format(transaction.date) + 'de ' + DateFormat('y ').format(transaction.date), style: Theme.of(context).textTheme.headline6.apply(color: Colors.white38)),
-                trailing: IconButton(icon: Icon(Icons.delete), onPressed: null)
-                )
-                );
+                trailing: IconButton(icon: Icon(Icons.delete), onPressed: () => transactionRemove(transaction.id), color: Colors.white)));
         }),
     );
   }

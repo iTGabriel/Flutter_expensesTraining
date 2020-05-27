@@ -49,7 +49,20 @@ class HomePageState extends State<HomePage> {
       _transactions.add(newTransaction);
     });
 
+
+    print("${newTransaction.id}");
+
+    
+
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id){
+    setState((){
+      _transactions.removeWhere((item) => item.id == id);
+    });
+
+    print("Removido !");
   }
 
   _activeModal(BuildContext context){
@@ -73,7 +86,7 @@ class HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Chart(_transacaoRecente),
-          TransactionList(_transactions),
+          TransactionList(_transactions, _removeTransaction),
             ],
           )), 
           floatingActionButton: FloatingActionButton(
