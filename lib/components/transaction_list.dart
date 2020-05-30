@@ -9,6 +9,8 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactionList, this.transactionRemove);
 
   Widget build(BuildContext context) {
+    bool isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     Intl.defaultLocale = 'pt_Br';
     initializeDateFormatting('pt_Br', null);
 
@@ -38,7 +40,9 @@ class TransactionList extends StatelessWidget {
                 ),
                 title: Text(transaction.title, style: Theme.of(context).textTheme.headline6),
                 subtitle: Text(DateFormat('d ').format(transaction.date) + 'de ' + DateFormat('MMMM ').format(transaction.date) + 'de ' + DateFormat('y ').format(transaction.date), style: Theme.of(context).textTheme.headline6.apply(color: Colors.white38)),
-                trailing: IconButton(icon: Icon(Icons.delete), onPressed: () => transactionRemove(transaction.id), color: Colors.white)));
+                trailing: isLandScape
+                ? FlatButton.icon(icon: Icon(Icons.delete), onPressed: () => transactionRemove(transaction.id), label: Text("Excluir"), textColor: Colors.white,)
+                : IconButton(icon: Icon(Icons.delete), onPressed: () => transactionRemove(transaction.id), color: Colors.white)));
         }),
     );
   }

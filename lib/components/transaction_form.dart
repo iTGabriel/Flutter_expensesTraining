@@ -49,28 +49,30 @@ class _TransactionFormState extends State<TransactionForm> {
 
   
   Widget build(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Column(children: <Widget>[
-        TextField(controller: titleController, decoration: InputDecoration(labelText: 'Titulo'), onSubmitted: (_) => _submitForm()),
-        TextField(controller: valueController, decoration: InputDecoration(labelText: 'Valor: (R\$)'), 
-        keyboardType: TextInputType.numberWithOptions(decimal: true), onSubmitted: (_) => _submitForm(),),
-        SizedBox(height: 20),
-        Row(children:<Widget>[
-           Expanded(
-                        child: _selectedTime == null 
-             ?Text("Nenhuma data selecionada ", style: Theme.of(context).textTheme.headline5.apply(color: Colors.black))
-             :Text( "Data selecionada: " + DateFormat('d').format(_selectedTime) +"/"+ DateFormat('MM').format(_selectedTime) +'/'+ DateFormat('y').format(_selectedTime)),
-           ) ,
-          FlatButton(onPressed: _showDatePicker, child: Text("Selecionar data", style: Theme.of(context).textTheme.headline5.apply(color: Theme.of(context).primaryColor),),)
-          ]),
-        Padding(padding: const EdgeInsets.all(20),
-        child: Container(
-          decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(15)),
-            child:FlatButton(onPressed: () => _submitForm(), child: Text('Cadastrar despesa', style: Theme.of(context).textTheme.headline5))
-          ),
-        )
-      ]),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 10 + MediaQuery.of(context).viewInsets.bottom),
+        child: Column(children: <Widget>[
+          TextField(controller: titleController, decoration: InputDecoration(labelText: 'Titulo'), onSubmitted: (_) => _submitForm()),
+          TextField(controller: valueController, decoration: InputDecoration(labelText: 'Valor: (R\$)'), 
+          keyboardType: TextInputType.numberWithOptions(decimal: true), onSubmitted: (_) => _submitForm(),),
+          SizedBox(height: 20),
+          Row(children:<Widget>[
+             Expanded(
+                          child: _selectedTime == null 
+               ?Text("Nenhuma data selecionada ", style: Theme.of(context).textTheme.headline5.apply(color: Colors.black))
+               :Text( "Data selecionada: " + DateFormat('d').format(_selectedTime) +"/"+ DateFormat('MM').format(_selectedTime) +'/'+ DateFormat('y').format(_selectedTime)),
+             ) ,
+            FlatButton(onPressed: _showDatePicker, child: Text("Selecionar data", style: Theme.of(context).textTheme.headline5.apply(color: Theme.of(context).primaryColor),),)
+            ]),
+          Padding(padding: const EdgeInsets.all(20),
+          child: Container(
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(15)),
+              child:FlatButton(onPressed: () => _submitForm(), child: Text('Cadastrar despesa', style: Theme.of(context).textTheme.headline5))
+            ),
+          )
+        ]),
+      ),
     );
   }
 }
