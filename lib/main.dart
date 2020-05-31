@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
@@ -92,7 +93,7 @@ class HomePageState extends State<HomePage> {
             
             ],
           )), 
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: Platform.isIOS ? Container() : FloatingActionButton(
             child: Icon(Icons.add,), onPressed: () => _activeModal(context)), 
             floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
