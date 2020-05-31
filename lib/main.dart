@@ -35,6 +35,7 @@ class HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
     Transaction(id: '1', title: 'Flutter 2', value: 20, date: DateTime.now().subtract(Duration(days: 5))),
   ];
+  var _ChartORList = true;
 
   List <Transaction> get _transacaoRecente{
       return _transactions.where( (tr) {
@@ -49,11 +50,6 @@ class HomePageState extends State<HomePage> {
       _transactions.add(newTransaction);
     });
 
-
-    print("${newTransaction.id}");
-
-    
-
     Navigator.of(context).pop();
   }
 
@@ -62,7 +58,6 @@ class HomePageState extends State<HomePage> {
       _transactions.removeWhere((item) => item.id == id);
     });
 
-    print("Removido !");
   }
 
   _activeModal(BuildContext context){
@@ -73,20 +68,28 @@ class HomePageState extends State<HomePage> {
       });
   }
 
-  
-
   Widget build(BuildContext context) {
+    bool isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Despesas - Flutter App"),
         backgroundColor: Theme.of(context).primaryColor,
-        actions: <Widget>[IconButton(icon: Icon(Icons.add), onPressed: () => _activeModal(context))],
+        actions: <Widget>[
+          if(isLandScape)IconButton(icon: _ChartORList ? Icon(Icons.insert_chart) : Icon(Icons.list), onPressed: () => { setState(() {_ChartORList = !_ChartORList;}) }),
+          IconButton(icon: Icon(Icons.add), onPressed: () => _activeModal(context))
+          ],
       ),
       body: SingleChildScrollView( child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Chart(_transacaoRecente),
-          TransactionList(_transactions, _removeTransaction),
+
+
+          if(_ChartORList || !isLandScape)
+            Chart(_transacaoRecente),
+          if(!_ChartORList || !isLandScape)
+            TransactionList(_transactions, _removeTransaction),
+            
             ],
           )), 
           floatingActionButton: FloatingActionButton(
